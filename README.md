@@ -262,3 +262,138 @@ data/
 ├── products.json
 ├── carts.json
 └── orders.json
+
+
+## 🧭 Development ketma-ketligi (Bosqichma-bosqich)
+
+Quyidagi tartib **tasodifiy emas**.  
+Har bir qadam keyingisiga tayanch bo‘ladi.
+
+---
+
+### 1️⃣ Bosqich — Model qatlamini yozish (`models/`)
+
+📌 **Birinchi har doim MODEL yoziladi.**
+
+Sababi:
+- Barcha biznes logika model’ga tayangan
+- Service va JSON strukturasi model’dan kelib chiqadi
+
+Yoziladigan fayllar tartibi:
+1. `models/user.py`
+2. `models/product.py`
+3. `models/cart_item.py`
+4. `models/cart.py`
+5. `models/order_item.py`
+6. `models/order.py`
+
+🔒 Bu bosqichda:
+- JSON yo‘q
+- input / print yo‘q
+- faqat class + fieldlar
+
+---
+
+### 2️⃣ Bosqich — JSON bilan ishlash (`core/database.py`)
+
+📌 **Model tayyor bo‘lgandan keyin JSON yoziladi.**
+
+Sababi:
+- JSON strukturasi model’ga mos bo‘lishi kerak
+
+Bu bosqichda:
+- `data/` papkasi yaratiladi
+- `users.json`
+- `products.json`
+- `carts.json`
+- `orders.json`
+
+`database.py` mas’uliyatlari:
+- JSON o‘qish (read)
+- JSON yozish (write)
+- Bo‘sh faylni avtomatik yaratish
+
+---
+
+### 3️⃣ Bosqich — Yordamchi funksiyalar (`core/utils.py`)
+
+📌 **JSON’dan oldin emas, keyin.**
+
+Bu yerda:
+- ID generator
+- Validatsiya
+- Takroriy kodlar
+
+Sababi:
+- Service’lar bu funksiyalarga tayangan bo‘ladi
+
+---
+
+### 4️⃣ Bosqich — Auth logika (`services/auth_service.py`)
+
+📌 **Eng birinchi service — AUTH.**
+
+Sababi:
+- Boshqa hamma narsa user’ga bog‘liq
+
+Bu bosqichda:
+- Register
+- Login
+- Logout
+- User’ni JSON’da saqlash
+
+---
+
+### 5️⃣ Bosqich — Cart logika (`services/cart_service.py`)
+
+📌 **User bo‘lmasa — Cart bo‘lmaydi.**
+
+Bu bosqichda:
+- Cart yaratish
+- Product qo‘shish
+- Product o‘chirish
+- Cart JSON bilan bog‘lanadi
+
+---
+
+### 6️⃣ Bosqich — Order logika (`services/order_service.py`)
+
+📌 **Eng oxirgi biznes bosqich.**
+
+Bu bosqichda:
+- Cart → Order
+- Total price hisoblash
+- Order JSON’da saqlash
+- Cart tozalanadi
+
+---
+
+### 7️⃣ Bosqich — CLI (`main.py`)
+
+📌 **Har doim ENG OXIRIDA.**
+
+Sababi:
+- CLI faqat tayyor servislarni chaqiradi
+
+Bu yerda:
+- Menyu
+- Input / print
+- Flow boshqaruvi
+
+---
+
+### 8️⃣ Bosqich — Test va refaktor
+
+📌 **Ishlayaptimi emas, TOZAMI?**
+
+Bu bosqichda:
+- Kod soddalashtiriladi
+- Takroriy joylar qisqartiriladi
+- Edge case’lar tekshiriladi
+
+---
+
+## 🧩 Qisqacha ketma-ketlik (1 qatorli)
+
+```text
+models → database (JSON) → utils → auth → cart → order → main → test
